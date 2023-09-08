@@ -50,19 +50,24 @@ def get_net():
 
 def get_and_process_data(data_dir):
     # load data
-    color = np.array(Image.open(os.path.join(data_dir, 'color.png')), dtype=np.float32) / 255.0
-    depth = np.array(Image.open(os.path.join(data_dir, 'depth.png')))
+    #color = np.array(Image.open(os.path.join(data_dir, 'color.png')), dtype=np.float32) / 255.0
+    #depth = np.array(Image.open(os.path.join(data_dir, 'depth.png')))
+    data_dir2 = "/home/armine/Pictures/RGBD"
+    color = np.array(Image.open(os.path.join(data_dir2, 'color_0.png')), dtype=np.float32) / 255.0
+    depth = np.array(Image.open(os.path.join(data_dir2, 'depth_0.png')))
     workspace_mask = np.array(Image.open(os.path.join(data_dir, 'workspace_mask.png')))
     meta = scio.loadmat(os.path.join(data_dir, 'meta.mat'))
     intrinsic = meta['intrinsic_matrix']
     factor_depth = meta['factor_depth']
 
     # generate cloud
-    camera = CameraInfo(1280.0, 720.0, intrinsic[0][0], intrinsic[1][1], intrinsic[0][2], intrinsic[1][2], factor_depth)
+    #camera = CameraInfo(1280.0, 720.0, intrinsic[0][0], intrinsic[1][1], intrinsic[0][2], intrinsic[1][2], factor_depth)
+    camera = CameraInfo(640.0, 480.0, intrinsic[0][0], intrinsic[1][1], intrinsic[0][2], intrinsic[1][2], factor_depth)
     cloud = create_point_cloud_from_depth_image(depth, camera, organized=True)
 
     # get valid points
-    mask = (workspace_mask & (depth > 0))
+    #mask = (workspace_mask & (depth > 0))
+    mask = depth > 0
     cloud_masked = cloud[mask]
     color_masked = color[mask]
 
