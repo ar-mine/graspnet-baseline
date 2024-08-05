@@ -15,7 +15,7 @@ int knn(at::Tensor& ref, at::Tensor& query, at::Tensor& idx)
 {
 
     // TODO check dimensions
-    long batch, ref_nb, query_nb, dim, k;
+    int64_t batch, ref_nb, query_nb, dim, k;
     batch = ref.size(0);
     dim = ref.size(1);
     k = idx.size(1);
@@ -24,7 +24,7 @@ int knn(at::Tensor& ref, at::Tensor& query, at::Tensor& idx)
 
     float *ref_dev = ref.data<float>();
     float *query_dev = query.data<float>();
-    long *idx_dev = idx.data<long>();
+    int64_t *idx_dev = idx.data<int64_t>();
 
 
 
@@ -56,7 +56,7 @@ int knn(at::Tensor& ref, at::Tensor& query, at::Tensor& idx)
 
 
     float *dist_dev = (float*)malloc(ref_nb * query_nb * sizeof(float));
-    long *ind_buf = (long*)malloc(ref_nb * sizeof(long));
+    int64_t *ind_buf = (int64_t*)malloc(ref_nb * sizeof(int64_t));
     for (int b = 0; b < batch; b++) {
     knn_cpu(ref_dev + b * dim * ref_nb, ref_nb, query_dev + b * dim * query_nb, query_nb, dim, k,
       dist_dev, idx_dev + b * k * query_nb, ind_buf);
