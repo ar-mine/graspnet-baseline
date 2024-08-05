@@ -1,4 +1,5 @@
 # GraspNet Baseline
+[This fork is to update this repo for better compatibility.]
 Baseline model for "GraspNet-1Billion: A Large-Scale Benchmark for General Object Grasping" (CVPR 2020).
 
 [[paper](https://openaccess.thecvf.com/content_CVPR_2020/papers/Fang_GraspNet-1Billion_A_Large-Scale_Benchmark_for_General_Object_Grasping_CVPR_2020_paper.pdf)]
@@ -17,7 +18,7 @@ Baseline model for "GraspNet-1Billion: A Large-Scale Benchmark for General Objec
 
 ## Requirements
 - Python 3
-- PyTorch 1.6
+- PyTorch 1.10
 - Open3d >=0.8
 - TensorBoard 2.3
 - NumPy
